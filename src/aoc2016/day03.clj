@@ -2,11 +2,10 @@
   (:require [clojure.string :as cs]))
 
 (def input (slurp "resources/day03.txt"))
-(def puzzle (partition 3
-                       (map #(Integer/parseInt %)
-                            (-> input
-                                (cs/split #"\s+")
-                                (#(remove empty? %))))))
+(def puzzle (->> (cs/split input #"\s+")
+                 (remove empty?)
+                 (map #(Integer/parseInt %))
+                 (partition 3)))
 
 (defn valid?
   [[a b c]]
@@ -16,14 +15,18 @@
     (> (+ b c) a)))
 
 (comment
-  (count (filter valid? puzzle))
+  (->> puzzle
+       (filter valid?)
+       (count))
   ;; => 1050
   )
 
 (comment
-  (count (filter valid?
-                 (partition 3
-                            (apply concat
-                                   (apply map vector puzzle)))))
+  (->> puzzle
+       (apply map vector)
+       (apply concat)
+       (partition 3)
+       (filter valid?)
+       (count))
   ;; => 1921
   )

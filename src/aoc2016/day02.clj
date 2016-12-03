@@ -3,7 +3,7 @@
 
 (def input (slurp "resources/day02.txt"))
 (def puzzle (-> input
-                  (cs/split #"\n")))
+                (cs/split #"\n")))
 
 (defn U
   "move U"

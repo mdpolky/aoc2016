@@ -5,10 +5,11 @@
 
 ;; ([:R 2] [:L 3] ... [:L 2])
 ;; ([turn amount] ...)
-(def puzzle (map #(vector (keyword (str (first (cs/trim %))))
-                          (Integer/parseInt (.substring (cs/trim %) 1)))
-                 (-> input
-                     (cs/split #","))))
+(def puzzle (->> (cs/split input #",")
+                 (map cs/trim)
+                 (map #(vector
+                         (-> % first str keyword)
+                         (-> % (.substring 1) Integer/parseInt)))))
 
 ;; Keep track of orientation and position (state)
 ;; [orientation [xpos ypos]]
