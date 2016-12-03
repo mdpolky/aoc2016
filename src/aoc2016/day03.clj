@@ -20,12 +20,10 @@
   ;; => 1050
   )
 
-(def puzzle2 (partition 3
-                        (concat (map #(nth % 0) puzzle)
-                                (map #(nth % 1) puzzle)
-                                (map #(nth % 2) puzzle))))
-
 (comment
-  (count (filter valid? puzzle2))
+  (count (filter valid?
+                 (partition 3
+                            (apply concat
+                                   (apply map vector puzzle)))))
   ;; => 1921
   )
